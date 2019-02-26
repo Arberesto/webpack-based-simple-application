@@ -35,8 +35,17 @@ class OperationExecutor {
   firstTaskExecute(arg) {
     /**
      * Place your code here
-     */
-    return null /* variable with result */;
+     */ 
+    let objCloned = {...arg.obj1};
+    let result = {
+     obj1: arg.obj1,
+     obj2: objCloned
+    };
+    result.obj2.relatives = [...arg.obj1.relatives];
+    result.obj2.firstName = 'Petya';
+    result.obj2.lastName = 'Sidorov';
+    result.obj2.relatives.splice(0,1,{"firstName": "Anya", "lastName": "Sidorova"});
+    return result; /* variable with result */
   }
 
   /**
@@ -49,7 +58,18 @@ class OperationExecutor {
     /**
      * Place your code here
      */
-    return null /* variable with result */;
+    let objCloned = {...arg.obj1,...arg.obj2};
+      let result = {
+          obj1: arg.obj1,
+          obj2: arg.obj2,
+          obj3: objCloned
+      };
+
+     result.obj3.f = 15;
+     result.obj3.a = 11;
+     result.obj3.d = 33;
+
+    return result /* variable with result */;
   }
 
   /**
@@ -62,7 +82,17 @@ class OperationExecutor {
     /**
      * Place your code here
      */
-    return null /* variable with result */;
+
+    let result = {
+      obj1: arg.obj1
+    };
+
+    result.obj1.relatives.forEach(item => {
+          item.gender = 'female';
+    });
+    result.obj1.relatives[2].gender = 'male';
+
+    return result /* variable with result */;
   }
 
   /**
@@ -75,7 +105,20 @@ class OperationExecutor {
     /**
      * Place your code here
      */
-    return null /* variable with result */;
+
+    let resultedArray = [];
+
+    arg.obj1.relatives.forEach( item =>{
+       if (item.gender =="female") {
+           resultedArray.push(`Hello, ${item.firstName} ${item.lastName}`);
+       }
+    });
+
+    let result = {
+      obj1: resultedArray
+    }
+
+    return result /* variable with result */;
   }
 
   /**
@@ -85,10 +128,9 @@ class OperationExecutor {
    * @returns string which contains the class of the button and current color
    */
   fifthTaskExecute(arg) {
-    /**
-     * Place your code here
-     */
-    return '';
+    let buttonList = window.document.getElementsByClassName(arg.className);
+    buttonList['0'].style.backgroundColor = arg.color
+    return `This ${buttonList[0].className} are ${buttonList[0].style.backgroundColor}`;
   }
 
   /**
@@ -101,7 +143,16 @@ class OperationExecutor {
     /**
      * Place your code here
      */
-    return null;
+    let array = [];
+    arg.hostNames.forEach(item=>{
+      if (item == location.hostname) {
+        array.push(item);
+      }
+    });
+    let result = {
+      obj1: array
+    };
+    return result;
   }
 
   /**
@@ -114,7 +165,13 @@ class OperationExecutor {
     /**
      * Place your code here
      */
-    return null;
+    let result = {};
+    let keys = Object.keys(arg);
+    keys.forEach(key=>{
+      result[arg[key]] = key;
+    });
+
+    return result;
   }
 
   /**
@@ -127,7 +184,24 @@ class OperationExecutor {
     /**
      * Place your code here
      */
-    return null;
+    let result={};
+    let array = [];
+    arg.arr1.forEach(item => {
+        array.push(item);
+    });
+    arg.arr2.forEach(item => {
+        array.push(item);
+    });
+    for (var i=0; i < array.length; i++) {
+      if (i % 2 == 0) {
+              if (array[i + 1]) {
+                  result[array[i]] = array[i + 1];
+              } else {
+                result[array[i]] = null;
+              }
+      }
+    }
+    return result;
   }
 
   /**
@@ -140,7 +214,12 @@ class OperationExecutor {
     /**
      * Place your code here
      */
-    return null;
+
+    let result = {};
+    obj1:arg.users.forEach(item =>{
+      result[item.id] = item;
+    });
+    return result;
   }
 
   /**
@@ -153,7 +232,14 @@ class OperationExecutor {
     /**
      * Place your code here
      */
-    return null;
+    let buttonList = window.document.getElementsByClassName(arg.className);
+    buttonList[0].childNodes.forEach(child =>{
+        arg.childrenInfo.push({
+            tag: child.nodeName,
+            className: child.constructor.name
+        });
+    });
+    return arg;
   }
 }
 
